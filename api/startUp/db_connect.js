@@ -22,7 +22,7 @@ module.exports = function () {
     })
     .catch((err) =>
       logger.error(
-        "Error on connection to:/n",
+        "Error on connection to:\n",
         mongooseURI,
         "\n Error: \n",
         err

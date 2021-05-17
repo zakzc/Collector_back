@@ -8,7 +8,6 @@
     ],
     "audioCollection": [
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "LP",
@@ -38,7 +37,6 @@
         "personalNotes": "notes from the owner"
       },
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "LP",
@@ -70,7 +68,6 @@
     ],
     "bookCollection": [
       {
-        // "id": 1,
         "title": "nice book",
         "author": "John Snow",
         "typeOfMedia": "book",
@@ -100,7 +97,6 @@
         "personalNotes": "notes from the owner"
       },
       {
-        // "id": 1,
         "title": "another book",
         "author": "Mark Hammer",
         "typeOfMedia": "book",
@@ -132,7 +128,6 @@
     ],
     "equipmentCollection": [
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "DVD",
@@ -162,7 +157,6 @@
         "personalNotes": "notes from the owner"
       },
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "Bluray",
@@ -194,7 +188,6 @@
     ],
     "graphicCollection": [
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "DVD",
@@ -224,7 +217,6 @@
         "personalNotes": "notes from the owner"
       },
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "Bluray",
@@ -256,7 +248,6 @@
     ],
     "mediaCollection": [
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "DVD",
@@ -286,7 +277,6 @@
         "personalNotes": "notes from the owner"
       },
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "Bluray",
@@ -318,7 +308,6 @@
     ],
     "otherCollections": [
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "LP",
@@ -348,7 +337,6 @@
         "personalNotes": "notes from the owner"
       },
       {
-        // "id": 1,
         "title": "great album",
         "author": "John Smith",
         "typeOfMedia": "LP",
