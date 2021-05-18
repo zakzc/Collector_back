@@ -8,15 +8,17 @@ const collectionControl = require("../controller/collectionControl");
 const logger = require("../utils/logger");
 
 if (process.env.NODE_ENV === "development") {
-  logger.info("Collection routes on");
   router.use(morgan("tiny"));
 }
 
 router.get("/getAll", asyncMiddleware(collectionControl.getAll));
 
-router.get("/test", function (req, res) {
-  logger.info("Get all");
-  res.send("Hello again!");
-});
+router.get("/getOne/:id", asyncMiddleware(collectionControl.getOneItem));
+
+router.post("/addNewItem", asyncMiddleware(collectionControl.addNewItem));
+
+router.put("/updateItem/:id", asyncMiddleware(collectionControl.updateItem));
+
+router.delete("/deleteItem/:id", asyncMiddleware(collectionControl.deleteItem));
 
 module.exports = router;

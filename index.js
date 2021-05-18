@@ -8,7 +8,7 @@ const logger = require("./api/utils/logger");
 // start up
 require("./api/startUp/logs")();
 require("./api/startUp/api_routes")(app);
-// require("./api/startUp/db_connect")();
+require("./api/startUp/db_connect")();
 require("./api/startUp/prod")(app);
 
 let port;
@@ -20,7 +20,9 @@ if (process.env.NODE_ENV === "test") {
 }
 
 const server = app.listen(port, () =>
-  logger.info(`App listening on port: ${port}\n`)
+  logger.info(
+    `App listening on port: ${port}\nApplication on ${process.env.NODE_ENV} mode\n`
+  )
 );
 
 module.exports = server;
