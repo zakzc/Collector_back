@@ -77,8 +77,8 @@ async function logIn(req, res) {
   //     _id: existingUser._id,
   //     isAdmin: existingUser.isAdmin,
   //   });
-
-  return res.header("x-auth-token", token).status(200).json({ login: true });
+  return res.status(200).json({ login: true });
+  // return res.header("x-auth-token", token).status(200).json({ login: true });
 }
 
 // to get the current logged in user

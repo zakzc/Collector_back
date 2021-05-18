@@ -1,0 +1,24 @@
+{
+  "collector": "1234",
+  "typeOfMedia": "B",
+  "title": "great book",
+  "author": ["John Smith"],
+  "genre": "novel",
+  "mediaID": "1234gas5",
+  "quantity": 2,
+  "sellable": true,
+  "dates": [
+    { "originalReleaseDate": "10/02/1988" },
+    { "editionDate": "15/03/1989" }
+  ],
+  "price": [
+    {
+      "dateOfEval": "15/03/1988",
+      "marketValue": "124",
+      "estimatedValue": "159",
+      "priceTendency": true
+    }
+  ],
+  "details": "important",
+  "personalNotes": "n/a"
+}

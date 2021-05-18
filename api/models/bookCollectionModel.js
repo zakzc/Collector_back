@@ -1,9 +1,17 @@
 const mongoose = require("mongoose");
 
 const BookCollectionSchema = new mongoose.Schema({
-  owner: {
+  collector: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
+  },
+  typeOfMedia: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 1,
+    uppercase: true,
+    trim: true,
   },
   title: {
     type: String,
@@ -21,13 +29,6 @@ const BookCollectionSchema = new mongoose.Schema({
       trim: true,
     },
   ],
-  typeOfMedia: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 50,
-    trim: true,
-  },
   genre: {
     type: String,
     required: true,
@@ -43,35 +44,35 @@ const BookCollectionSchema = new mongoose.Schema({
     trim: true,
   },
   quantity: { type: Number, required: true },
-  sellable: Boolean,
+  sellable: { type: Boolean, required: true },
   dates: [
     { originalReleaseDate: { type: Date } },
-    { currEditDate: { type: Date } },
+    { editionDate: { type: Date } },
   ],
   price: [
     {
       dateOfEval: { type: Date },
       marketValue: { type: Number },
-      estimated: { type: Number },
-      tendency: Boolean,
+      estimatedValue: { type: Number },
+      priceTendency: Boolean,
     },
   ],
   details: {
     type: String,
-    required: true,
     minlength: 3,
     maxlength: 250,
     trim: true,
   },
-  personalNotes: {
+  notes: {
     type: String,
-    required: true,
     minlength: 3,
     maxlength: 250,
     trim: true,
   },
 });
 
+// Type: A=audio, B=book, G=graphic, E=equipment
+// Other collectibles are a different schema
 // Tendency: true for upwards, false for downwards
 
 module.exports = mongoose.model("Book", BookCollectionSchema);
