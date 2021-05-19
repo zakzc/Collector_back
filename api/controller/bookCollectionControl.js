@@ -5,8 +5,6 @@ const logger = require("../utils/logger");
 // model
 const Book = require("../models/bookCollectionModel");
 
-let testUser = require("../baseData/collection.json");
-
 function getBookData(data) {
   const item = _.pick(data, [
     "collector",
@@ -44,17 +42,36 @@ async function addNewItem(req, res) {
   });
   await newBook.save();
   // logger.info("item saved" + newBook);
-  return res.status(201).send({ success: true, message: newBook });
+  return res.status(201).send({ success: true, data: newBook });
 }
 
 async function getAll(req, res) {
   logger.info("Get all data");
   const collectionOfBooks = await Book.find().sort();
-  return res.status(200).send({ success: true, message: collectionOfBooks });
+  return res.status(200).send({ success: true, data: collectionOfBooks });
 }
 
-// TODO: get books by author
-// TODO: get books by Collector
+async function getByAuthor(req, res) {
+  logger.info("Get all books by author");
+  const authorToSeek = req.body.author;
+  const authorCollection = await Book.find({ author: authorToSeek });
+  if (!authorCollection) {
+    return res.status(404), send({ success: false, message: "No item found" });
+  }
+  return res.status(200).send({ success: true, data: authorCollection });
+}
+
+async function getByCollectorId(req, res) {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(404).send("invalid Id requested");
+  }
+  logger.info("Get all books owned by id:", req.params.id);
+  const collectorCollection = await Book.find({ collector: req.params.id });
+  if (!collectorCollection) {
+    return res.status(404), send({ success: false, message: "No item found" });
+  }
+  return res.status(200).send({ success: true, data: collectorCollection });
+}
 
 async function getOneItem(req, res) {
   logger.info("Get menu item");
@@ -65,7 +82,7 @@ async function getOneItem(req, res) {
   if (!bookToSearch) {
     return res.status(404), send({ success: false, message: "No item found" });
   }
-  return res.status(200).send({ success: true, message: bookToSearch });
+  return res.status(200).send({ success: true, data: bookToSearch });
 }
 
 async function updateItem(req, res) {
@@ -117,7 +134,7 @@ async function updateItem(req, res) {
   }
   itemToUpdate.save();
   logger.info("data update" + itemToUpdate);
-  return res.status(201).send({ success: true, message: itemToUpdate });
+  return res.status(201).send({ success: true, data: itemToUpdate });
 }
 
 async function deleteItem(req, res) {
@@ -133,3 +150,5 @@ exports.getOneItem = getOneItem;
 exports.addNewItem = addNewItem;
 exports.updateItem = updateItem;
 exports.deleteItem = deleteItem;
+exports.getByAuthor = getByAuthor;
+exports.getByCollectorId = getByCollectorId;

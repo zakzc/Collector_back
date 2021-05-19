@@ -4,21 +4,35 @@ const router = express.Router();
 // middle
 const asyncMiddleware = require("../middleware/async");
 // control
-const collectionControl = require("../controller/collectionControl");
+const bookCollectionControl = require("../controller/bookCollectionControl");
 const logger = require("../utils/logger");
 
 if (process.env.NODE_ENV === "development") {
+  logger.info("Book router on");
   router.use(morgan("tiny"));
 }
 
-router.get("/getAll", asyncMiddleware(collectionControl.getAll));
+router.get("/getAll", asyncMiddleware(bookCollectionControl.getAll));
 
-router.get("/getOne/:id", asyncMiddleware(collectionControl.getOneItem));
+router.get("/getOne/:id", asyncMiddleware(bookCollectionControl.getOneItem));
 
-router.post("/addNewItem", asyncMiddleware(collectionControl.addNewItem));
+router.get("/getByAuthor", asyncMiddleware(bookCollectionControl.getByAuthor));
 
-router.put("/updateItem/:id", asyncMiddleware(collectionControl.updateItem));
+router.get(
+  "/getByCollectorId/:id",
+  asyncMiddleware(bookCollectionControl.getByCollectorId)
+);
 
-router.delete("/deleteItem/:id", asyncMiddleware(collectionControl.deleteItem));
+router.post("/addNewItem", asyncMiddleware(bookCollectionControl.addNewItem));
+
+router.put(
+  "/updateItem/:id",
+  asyncMiddleware(bookCollectionControl.updateItem)
+);
+
+router.delete(
+  "/deleteItem/:id",
+  asyncMiddleware(bookCollectionControl.deleteItem)
+);
 
 module.exports = router;

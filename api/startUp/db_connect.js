@@ -7,8 +7,6 @@ const mongoose = require("mongoose");
 const logger = require("../utils/logger");
 
 module.exports = function () {
-  // check
-  logger.info("Connection call to: ", process.env.MONGOOSE_URI);
   /// data
   const mongooseURI =
     process.env.NODE_ENV === "test"
