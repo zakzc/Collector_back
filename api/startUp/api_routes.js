@@ -1,6 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-const logger = require("../utils/logger");
+const bodyParser = require("body-parser");
 // middle
 const serverError = require("../middleware/serverError");
 // routes
@@ -16,11 +16,13 @@ module.exports = function (app) {
 
   app.use(express.json());
 
+  // app.use(bodyParser.urlencoded({ extended: false }));
+
   app.use("/collection", collectionRoutes);
   app.use("/collector", userRoutes);
 
   app.use((req, res) => {
     res.status(404).send("Route not found");
   });
-  app.use(serverError);
+  // app.use(serverError);
 };

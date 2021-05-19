@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 // utils
 const _ = require("lodash");
 const logger = require("../utils/logger");
+const validateBook = require("../utils/validateBook");
 // model
 const Book = require("../models/bookCollectionModel");
 
@@ -25,7 +26,13 @@ function getBookData(data) {
 
 async function addNewItem(req, res) {
   logger.info("Add item");
-  itemToAdd = getBookData(req.body);
+  const validation = validateBook(req.body);
+  // returns false if valid
+  if (validation)
+    return res
+      .status(400)
+      .send({ success: false, message: "Validation error", data: validation });
+  const itemToAdd = getBookData(req.body);
   newBook = new Book({
     collector: itemToAdd.collector,
     typeOfMedia: itemToAdd.typeOfMedia,
@@ -85,7 +92,17 @@ async function getOneItem(req, res) {
   return res.status(200).send({ success: true, data: bookToSearch });
 }
 
+// You can't update the owner of the collection
 async function updateItem(req, res) {
+  logger.info("req.body");
+  let validation = validateBook(req.body);
+  // returns false if valid
+  if (validation)
+    return res.status(400).send({
+      success: false,
+      message: "Validation error",
+      data: validation,
+    });
   logger.info("Update item");
   let itemToUpdate = await Book.findById(req.params.id);
   if (!itemToUpdate) {
@@ -93,39 +110,17 @@ async function updateItem(req, res) {
   }
   newItemData = getBookData(req.body);
   try {
-    if (newItemData.typeOfMedia) {
-      itemToUpdate.typeOfMedia = newItemData.typeOfMedia;
-    }
-    if (newItemData.title) {
-      itemToUpdate.title = newItemData.title;
-    }
-    if (newItemData.author) {
-      itemToUpdate.author = newItemData.author;
-    }
-    if (newItemData.genre) {
-      itemToUpdate.genre = newItemData.genre;
-    }
-    if (newItemData.mediaID) {
-      itemToUpdate.mediaID = newItemData.mediaID;
-    }
-    if (newItemData.quantity) {
-      itemToUpdate.quantity = newItemData.quantity;
-    }
-    if (newItemData.sellable) {
-      itemToUpdate.sellable = newItemData.sellable;
-    }
-    if (newItemData.dates) {
-      itemToUpdate.dates = newItemData.dates;
-    }
-    if (newItemData.price) {
-      itemToUpdate.price = newItemData.price;
-    }
-    if (newItemData.details) {
-      itemToUpdate.details = newItemData.details;
-    }
-    if (newItemData.notes) {
-      itemToUpdate.notes = newItemData.notes;
-    }
+    itemToUpdate.typeOfMedia = newItemData.typeOfMedia;
+    itemToUpdate.title = newItemData.title;
+    itemToUpdate.author = newItemData.author;
+    itemToUpdate.genre = newItemData.genre;
+    itemToUpdate.mediaID = newItemData.mediaID;
+    itemToUpdate.quantity = newItemData.quantity;
+    itemToUpdate.sellable = newItemData.sellable;
+    itemToUpdate.dates = newItemData.dates;
+    itemToUpdate.price = newItemData.price;
+    itemToUpdate.details = newItemData.details;
+    itemToUpdate.notes = newItemData.notes;
   } catch (err) {
     return (
       res.status(404),
