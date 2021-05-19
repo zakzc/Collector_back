@@ -83,11 +83,13 @@ async function getByCollectorId(req, res) {
 async function getOneItem(req, res) {
   logger.info("Get menu item");
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-    return res.status(404).send("invalid Id requested");
+    return res
+      .status(404)
+      .send({ success: false, message: "invalid Id requested" });
   }
   const bookToSearch = await Book.findById(req.params.id);
   if (!bookToSearch) {
-    return res.status(404), send({ success: false, message: "No item found" });
+    return res.status(404).send({ success: false, message: "No item found" });
   }
   return res.status(200).send({ success: true, data: bookToSearch });
 }

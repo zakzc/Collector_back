@@ -1,0 +1,25 @@
+{
+  "collector": "60a381a917b50e24c02df7bb",
+  "typeOfMedia": "B",
+  "title": "Antes do Baile Verde",
+  "author": ["Lygia Fagundes Teles"],
+  "genre": "novel",
+  "edition": "9",
+  "mediaID": "1234gas5",
+  "quantity": 7,
+  "sellable": true,
+  "dates": [
+    { "originalReleaseDate": "1970-01-01" },
+    { "editionDate": "2007-10-02" }
+  ],
+  "price": [
+    {
+      "dateOfEval": "2001-10-08",
+      "marketValue": "2500",
+      "estimatedValue": "1900",
+      "priceTendency": false
+    }
+  ],
+  "details": "In good state",
+  "notes": "Paperback edition"
+}

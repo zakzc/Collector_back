@@ -7,8 +7,6 @@ const serverError = require("../middleware/serverError");
 const collectionRoutes = require("../routes/collectionRoutes");
 const userRoutes = require("../routes/userRoutes");
 
-testData = require("../baseData/collection.json");
-
 module.exports = function (app) {
   if (process.env.NODE_ENV === "development") {
     app.use(morgan("tiny"));

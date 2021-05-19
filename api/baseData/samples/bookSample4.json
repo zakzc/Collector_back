@@ -1,0 +1,25 @@
+{
+  "collector": "60a381a917b50e24c02df7bb",
+  "typeOfMedia": "B",
+  "title": "Tales of the Jazz Age",
+  "author": ["F. Scott Fitzgerald"],
+  "genre": "novel",
+  "edition": "5",
+  "mediaID": "1234gas5",
+  "quantity": 3,
+  "sellable": true,
+  "dates": [
+    { "originalReleaseDate": "1922-01-01" },
+    { "editionDate": "1997-10-02" }
+  ],
+  "price": [
+    {
+      "dateOfEval": "2001-10-08",
+      "marketValue": "4500",
+      "estimatedValue": "4900",
+      "priceTendency": false
+    }
+  ],
+  "details": "In good state",
+  "notes": "Hardcover edition with dust cover"
+}

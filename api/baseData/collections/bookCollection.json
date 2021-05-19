@@ -2,7 +2,7 @@
   {
     "bookCollection": [
       {
-        // "id": 1,
+        "collector": "1234",
         "title": "nice book",
         "author": "John Snow",
         "typeOfMedia": "book",
@@ -59,7 +59,7 @@
           }
         ],
         "details": "details about the work",
-        "personalNotes": "notes from the owner"
+        "notes": "notes from the owner"
       }
     ]
   }

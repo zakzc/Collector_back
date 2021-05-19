@@ -10,6 +10,7 @@ function validateBook(data) {
     title: Joi.string().min(3).max(250).required(),
     author: Joi.array().items(Joi.string().min(3).max(150).required()),
     genre: Joi.string().min(3).max(50).required(),
+    edition: Joi.number(),
     mediaID: Joi.string().min(3).max(50).required(),
     quantity: Joi.number().required(),
     sellable: Joi.boolean().required(),

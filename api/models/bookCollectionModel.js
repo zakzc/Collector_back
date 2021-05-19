@@ -36,6 +36,7 @@ const BookCollectionSchema = new mongoose.Schema({
     maxlength: 50,
     trim: true,
   },
+  edition: { type: Number },
   mediaID: {
     type: String,
     required: true,
