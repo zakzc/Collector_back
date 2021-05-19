@@ -2,7 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 // Models
 const DB_Data = require("../../models/bookCollectionModel");
-const User_Data = require("../../models/userModel");
+// const User_Data = require("../../models/userModel");
 // const tokenFunc = require("../../utils/tokenFunc");
 
 let server;
@@ -31,7 +31,36 @@ const goodEntry = {
   notes: "Hardcover edition with dust cover",
 };
 
-describe("Integration test: Book controller", () => {
+const badEntry = {
+  collector: new mongoose.Types.ObjectId().toHexString(),
+  typeOfMedia: "B",
+  title: "",
+  author: ["F. Scott Fitzgerald"],
+  genre: "novel",
+  edition: "5",
+  mediaID: "1234gas5",
+  quantity: 3,
+  sellable: true,
+  dates: [{ originalReleaseDate: "1922-01-01" }, { editionDate: "1997-10-02" }],
+  price: [
+    {
+      dateOfEval: "2001-10-08",
+      marketValue: "4500",
+      estimatedValue: "4900",
+      priceTendency: false,
+    },
+  ],
+  details: "In good state",
+  notes: "Hardcover edition with dust cover",
+};
+
+describe("\nIntegration test: Book controller", () => {
+  ///
+  beforeAll(() => {
+    jest.spyOn(console, "log").mockImplementation(jest.fn());
+    jest.spyOn(console, "debug").mockImplementation(jest.fn());
+    jest.spyOn(console, "warn").mockImplementation(jest.fn());
+  });
   ///
   beforeEach(() => {
     server = require("../../../index");
@@ -62,9 +91,26 @@ describe("Integration test: Book controller", () => {
     });
     it("should return 404 for invalid id", async () => {
       let URL = baseURL + "getOne/0000";
-      console.log("-->", URL);
       const res = await request(server).get(URL);
       expect(res.status).toBe(404);
+      expect(res.body.success).toBe(false);
+    });
+  });
+  describe("Post method for new item", () => {
+    beforeEach(async () => {
+      //   const baseUser = await User_Data.findOne({ email: "kirk@fup.org" });
+    });
+    const call = async (payload) => {
+      let URL = baseURL + "/addNewItem";
+      return await request(server).post(URL).send(payload);
+    };
+    it("Should work for correct data", async () => {
+      const res = await call(goodEntry);
+      expect(res.status).toBe(201);
+    });
+    it("Should return error for incorrect data", async () => {
+      const res = await call(badEntry);
+      expect(res.status).toBe(400);
       expect(res.body.success).toBe(false);
     });
   });

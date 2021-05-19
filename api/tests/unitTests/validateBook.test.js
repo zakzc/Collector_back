@@ -47,7 +47,13 @@ const goodEntry = {
   notes: "Hardcover edition with dust cover",
 };
 
-describe("Validation", () => {
+describe("\nValidation test: book validation", () => {
+  beforeAll(() => {
+    jest.spyOn(console, "log").mockImplementation(jest.fn());
+    jest.spyOn(console, "debug").mockImplementation(jest.fn());
+    jest.spyOn(console, "warn").mockImplementation(jest.fn());
+  });
+  ///
   it("Should return false for correct entry.", () => {
     expect(validateBook(goodEntry)).toBe(false);
   });

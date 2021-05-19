@@ -7,7 +7,6 @@ module.exports = {
 
   // Indicates whether each individual test should be reported during the run
   verbose: true,
-
   watchman: true,
 
   //   setupFiles: ["../api/test/jestEnvVars"],

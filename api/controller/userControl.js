@@ -12,7 +12,8 @@ const logger = require("../utils/logger");
 
 async function registerUser(req, res) {
   const validationError = validateUser(req.body);
-  if (validationError) return res.status(400).send(validationError);
+  if (validationError)
+    return res.status(400).send({ success: false, error: validationError });
   // get data
   const newUser = _.pick(req.body, ["name", "email", "password", "isAdmin"]);
   logger.info("registration for: ", newUser);
@@ -22,7 +23,7 @@ async function registerUser(req, res) {
   if (doesUserExist)
     return res
       .status(400)
-      .json({ access: false, message: "This user already exists" });
+      .json({ success: false, message: "This user already exists" });
   // psw
   //   const hashedPsw = await hashFunc(newUser.password);
   // set data
@@ -40,7 +41,7 @@ async function registerUser(req, res) {
   // set header and send response
   try {
     res
-      .header("x-auth-token", token)
+      // .header("x-auth-token", token)
       .status(201)
       .json({ success: true, user: newUser.name, email: newUser.email });
   } catch (err) {

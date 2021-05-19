@@ -7,16 +7,19 @@ const mongoose = require("mongoose");
 const logger = require("../utils/logger");
 
 module.exports = function () {
-  /// data
+  /// mongoose configs
   const mongooseURI =
     process.env.NODE_ENV === "test"
       ? process.env.MONGOOSE_TEST_DB
       : process.env.MONGOOSE_URI;
-  // const mongooseURI = process.env.MONGOOSE_URI;
-  const mongooseOptions =
-    process.env.NODE_ENV === "test"
-      ? { useNewUrlParser: true, useUnifiedTopology: false }
-      : { useNewUrlParser: true, useUnifiedTopology: true };
+  const mongooseOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+  ////////// ********** ///////////
+  // ? The version bellow was necessary to align test, dev and prod mode.
+  // ? But it seems to be working now
+  // const mongooseOptions =
+  //   process.env.NODE_ENV === "test"
+  //     ? { useNewUrlParser: true, useUnifiedTopology: false }
+  //     : { useNewUrlParser: true, useUnifiedTopology: true };
 
   ///Connection
   mongoose
