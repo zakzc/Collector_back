@@ -46,18 +46,13 @@ const BookCollectionSchema = new mongoose.Schema({
   },
   quantity: { type: Number, required: true },
   sellable: { type: Boolean, required: true },
-  dates: [
-    { originalReleaseDate: { type: Date } },
-    { editionDate: { type: Date } },
-  ],
-  price: [
-    {
-      dateOfEval: { type: Date },
-      marketValue: { type: Number },
-      estimatedValue: { type: Number },
-      priceTendency: Boolean,
-    },
-  ],
+  dateOfPurchase: { type: String },
+  yearOfRelease: { type: Number },
+  price: {
+    purchasePrice: { type: Number },
+    estimatedCurrentMarketPrice: { type: Number },
+    tendency: { type: Boolean },
+  },
   details: {
     type: String,
     minlength: 3,
