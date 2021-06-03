@@ -8,7 +8,7 @@ const bookCollectionControl = require("../controller/bookCollectionControl");
 const logger = require("../utils/logger");
 
 if (process.env.NODE_ENV === "development") {
-  logger.info("Collection router on");
+  logger.info("Book router on");
   router.use(morgan("tiny"));
 }
 
