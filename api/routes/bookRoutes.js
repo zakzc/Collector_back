@@ -25,7 +25,7 @@ router.get(
 
 router.post("/addNewItem", asyncMiddleware(bookCollectionControl.addNewItem));
 
-router.put(
+router.patch(
   "/updateItem/:id",
   asyncMiddleware(bookCollectionControl.updateItem)
 );

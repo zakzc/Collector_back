@@ -10,38 +10,21 @@ function validateBook(data) {
     title: Joi.string().min(3).max(250).required(),
     author: Joi.array().items(Joi.string().min(3).max(150).required()),
     genre: Joi.string().min(3).max(50).required(),
-    edition: Joi.number(),
     mediaID: Joi.string().min(3).max(50).required(),
     quantity: Joi.number().required(),
     sellable: Joi.boolean().required(),
-    dates: Joi.array()
-      .items(
-        Joi.object({
-          originalReleaseDate: Joi.date(),
-          editionDate: Joi.date(),
-        })
-      )
-      .required(),
-    price: Joi.array()
-      .items(
-        Joi.object({
-          dateOfEval: Joi.date().min(1).required(),
-          marketValue: Joi.number().required(),
-          estimatedValue: Joi.number().required(),
-          priceTendency: Joi.boolean().required(),
-        })
-      )
-      .required(),
+    dateOfPurchase: Joi.date().min(1).required(),
+    price: Joi.number().required(),
     details: Joi.string().min(3).max(250),
     notes: Joi.string().min(3).max(250),
   });
   const isValid = schema.validate(data);
   if (isValid.error) {
-    result = isValid.error.details[0].message;
+    result = isValid.error;
     logger.info("\nError on validation\n", result);
     return result;
   }
-  logger.info("Valid");
+  logger.info("- Valid");
   return false;
 }
 

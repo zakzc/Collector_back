@@ -36,7 +36,6 @@ const BookCollectionSchema = new mongoose.Schema({
     maxlength: 50,
     trim: true,
   },
-  edition: { type: Number },
   mediaID: {
     type: String,
     required: true,
@@ -47,12 +46,7 @@ const BookCollectionSchema = new mongoose.Schema({
   quantity: { type: Number, required: true },
   sellable: { type: Boolean, required: true },
   dateOfPurchase: { type: String },
-  yearOfRelease: { type: Number },
-  price: {
-    purchasePrice: { type: Number },
-    estimatedCurrentMarketPrice: { type: Number },
-    tendency: { type: Boolean },
-  },
+  price: { type: Number },
   details: {
     type: String,
     minlength: 3,

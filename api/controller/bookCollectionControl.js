@@ -42,7 +42,7 @@ async function addNewItem(req, res) {
     mediaID: itemToAdd.mediaID,
     quantity: itemToAdd.quantity,
     sellable: itemToAdd.sellable,
-    dates: itemToAdd.dates,
+    dateOfPurchase: itemToAdd.dates,
     price: itemToAdd.price,
     details: itemToAdd.details,
     notes: itemToAdd.notes,
@@ -96,7 +96,7 @@ async function getOneItem(req, res) {
 
 // You can't update the owner of the collection
 async function updateItem(req, res) {
-  logger.info("req.body");
+  logger.info("Call for update:", req.params.id, " for ", req.body);
   let validation = validateBook(req.body);
   // returns false if valid
   if (validation)
@@ -135,7 +135,7 @@ async function updateItem(req, res) {
 }
 
 async function deleteItem(req, res) {
-  logger.info("Delete item");
+  logger.info("Delete item: ", req.params.id);
   await Book.findByIdAndRemove(req.params.id);
   return res
     .status(201)
