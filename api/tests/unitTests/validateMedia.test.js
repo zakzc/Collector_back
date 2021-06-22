@@ -3,8 +3,8 @@ const validateMedia = require("../../utils/validateMedia");
 
 const badEntry = {
   collector: new mongoose.Types.ObjectId().toHexString(),
-  typeOfMedia: "B",
-  title: "",
+  typeOfMedia: "Book",
+  title: "Tales of the Jazz Age",
   author: "F",
   subType: "novel",
   edition: "5",
@@ -23,7 +23,6 @@ const goodEntry = {
   title: "Tales of the Jazz Age",
   author: "F. Scott Fitzgerald",
   subType: "Novel",
-  edition: "5",
   mediaID: "1234gas5",
   quantity: 3,
   sellable: true,
@@ -41,12 +40,9 @@ describe("\nValidation test: media validation", () => {
   });
   ///
   it("Should return false for correct entry.", () => {
-    expect(validateMedia(goodEntry)).toBe(false);
+    expect(validateMedia(goodEntry).valid).toBe(true);
   });
   it("Should return error for incorrect entry", () => {
-    expect(validateMedia(badEntry)).toBe({
-      ValidationError:
-        '"typeOfMedia" length must be at least 2 characters long',
-    });
+    expect(validateMedia(badEntry).valid).toBe(false);
   });
 });

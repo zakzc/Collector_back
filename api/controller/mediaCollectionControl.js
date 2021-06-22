@@ -28,12 +28,16 @@ async function addNewItem(req, res) {
   logger.info("Add item: ", req.body);
   const validation = validateMedia(req.body);
   // returns false if valid
-  if (validation)
+  if (validation.valid === false)
     return res
       .status(400)
-      .send({ success: false, message: "Validation error", data: validation });
+      .send({
+        success: false,
+        message: "Validation error",
+        data: validation.message,
+      });
   const itemToAdd = getMediaData(req.body);
-  newBook = new MediaCollection({
+  newItem = new MediaCollection({
     collector: itemToAdd.collector,
     typeOfMedia: itemToAdd.typeOfMedia,
     title: itemToAdd.title,
@@ -47,9 +51,9 @@ async function addNewItem(req, res) {
     details: itemToAdd.details,
     notes: itemToAdd.notes,
   });
-  await newBook.save();
+  await newItem.save();
   // logger.info("item saved" + newBook);
-  return res.status(201).send({ success: true, data: newBook });
+  return res.status(201).send({ success: true, data: newItem });
 }
 
 async function getAll(req, res) {
@@ -101,7 +105,7 @@ async function updateItem(req, res) {
   logger.info("Call for update:", req.params.id, " for ", req.body);
   let validation = validateMedia(req.body);
   // returns false if valid
-  if (validation)
+  if (validation.valid === true)
     return res.status(400).send({
       success: false,
       message: "Validation error",

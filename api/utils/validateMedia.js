@@ -32,10 +32,10 @@ function validateMedia(data) {
   if (isValid.error) {
     result = isValid.error;
     logger.info("\nError on validation\n", result);
-    return result;
+    return { valid: false, message: result };
   }
   logger.info("- Valid");
-  return false;
+  return { valid: true };
 }
 
 module.exports = validateMedia;
