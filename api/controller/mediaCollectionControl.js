@@ -2,21 +2,21 @@ const mongoose = require("mongoose");
 // utils
 const _ = require("lodash");
 const logger = require("../utils/logger");
-const validateBook = require("../utils/validateBook");
+const validateMedia = require("../utils/validateMedia");
 // model
-const Book = require("../models/bookCollectionModel");
+const MediaCollection = require("../models/MediaCollectionModel");
 
-function getBookData(data) {
+function getMediaData(data) {
   const item = _.pick(data, [
     "collector",
     "typeOfMedia",
     "title",
     "author",
-    "genre",
+    "subType",
     "mediaID",
     "quantity",
     "sellable",
-    "dates",
+    "dateOfPurchase",
     "price",
     "details",
     "notes",
@@ -25,24 +25,24 @@ function getBookData(data) {
 }
 
 async function addNewItem(req, res) {
-  logger.info("Add item");
-  const validation = validateBook(req.body);
+  logger.info("Add item: ", req.body);
+  const validation = validateMedia(req.body);
   // returns false if valid
   if (validation)
     return res
       .status(400)
       .send({ success: false, message: "Validation error", data: validation });
-  const itemToAdd = getBookData(req.body);
-  newBook = new Book({
+  const itemToAdd = getMediaData(req.body);
+  newBook = new MediaCollection({
     collector: itemToAdd.collector,
     typeOfMedia: itemToAdd.typeOfMedia,
     title: itemToAdd.title,
     author: itemToAdd.author,
-    genre: itemToAdd.genre,
+    subType: itemToAdd.subType,
     mediaID: itemToAdd.mediaID,
     quantity: itemToAdd.quantity,
     sellable: itemToAdd.sellable,
-    dateOfPurchase: itemToAdd.dates,
+    dateOfPurchase: itemToAdd.dateOfPurchase,
     price: itemToAdd.price,
     details: itemToAdd.details,
     notes: itemToAdd.notes,
@@ -54,14 +54,14 @@ async function addNewItem(req, res) {
 
 async function getAll(req, res) {
   logger.info("Get all data");
-  const collectionOfBooks = await Book.find().sort();
-  return res.status(200).send({ success: true, data: collectionOfBooks });
+  const collectionOfItems = await MediaCollection.find().sort();
+  return res.status(200).send({ success: true, data: collectionOfItems });
 }
 
 async function getByAuthor(req, res) {
   logger.info("Get all books by author");
   const authorToSeek = req.body.author;
-  const authorCollection = await Book.find({ author: authorToSeek });
+  const authorCollection = await MediaCollection.find({ author: authorToSeek });
   if (!authorCollection) {
     return res.status(404), send({ success: false, message: "No item found" });
   }
@@ -73,7 +73,9 @@ async function getByCollectorId(req, res) {
     return res.status(404).send("invalid Id requested");
   }
   logger.info("Get all books owned by id:", req.params.id);
-  const collectorCollection = await Book.find({ collector: req.params.id });
+  const collectorCollection = await MediaCollection.find({
+    collector: req.params.id,
+  });
   if (!collectorCollection) {
     return res.status(404), send({ success: false, message: "No item found" });
   }
@@ -87,7 +89,7 @@ async function getOneItem(req, res) {
       .status(404)
       .send({ success: false, message: "invalid Id requested" });
   }
-  const bookToSearch = await Book.findById(req.params.id);
+  const bookToSearch = await MediaCollection.findById(req.params.id);
   if (!bookToSearch) {
     return res.status(404).send({ success: false, message: "No item found" });
   }
@@ -97,7 +99,7 @@ async function getOneItem(req, res) {
 // You can't update the owner of the collection
 async function updateItem(req, res) {
   logger.info("Call for update:", req.params.id, " for ", req.body);
-  let validation = validateBook(req.body);
+  let validation = validateMedia(req.body);
   // returns false if valid
   if (validation)
     return res.status(400).send({
@@ -106,20 +108,20 @@ async function updateItem(req, res) {
       data: validation,
     });
   logger.info("Update item");
-  let itemToUpdate = await Book.findById(req.params.id);
+  let itemToUpdate = await MediaCollection.findById(req.params.id);
   if (!itemToUpdate) {
     return res.status(400).send({ success: false, message: "No item found" });
   }
-  newItemData = getBookData(req.body);
+  newItemData = getMediaData(req.body);
   try {
     itemToUpdate.typeOfMedia = newItemData.typeOfMedia;
     itemToUpdate.title = newItemData.title;
     itemToUpdate.author = newItemData.author;
-    itemToUpdate.genre = newItemData.genre;
+    itemToUpdate.subType = newItemData.subType;
     itemToUpdate.mediaID = newItemData.mediaID;
     itemToUpdate.quantity = newItemData.quantity;
     itemToUpdate.sellable = newItemData.sellable;
-    itemToUpdate.dates = newItemData.dates;
+    itemToUpdate.dateOfPurchase = newItemData.dateOfPurchase;
     itemToUpdate.price = newItemData.price;
     itemToUpdate.details = newItemData.details;
     itemToUpdate.notes = newItemData.notes;
@@ -136,7 +138,7 @@ async function updateItem(req, res) {
 
 async function deleteItem(req, res) {
   logger.info("Delete item: ", req.params.id);
-  await Book.findByIdAndRemove(req.params.id);
+  await MediaCollection.findByIdAndRemove(req.params.id);
   return res
     .status(201)
     .send({ success: true, message: `Deleted: ${req.params.id}` });

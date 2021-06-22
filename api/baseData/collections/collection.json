@@ -11,7 +11,7 @@
 //         "title": "great album",
 //         "artist": "John Smith",
 //         "typeOfMedia": "LP",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -40,7 +40,7 @@
 //         "title": "great album",
 //         "artist": "John Smith",
 //         "typeOfMedia": "LP",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -72,7 +72,7 @@
 //         "artist
 //         ": "John Snow",
 //         "typeOfMedia": "book",
-//         "genre": "Thriller",
+//         "subType": "Thriller",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -102,7 +102,7 @@
 //         "artist
 //         ": "Mark Hammer",
 //         "typeOfMedia": "book",
-//         "genre": "Thriller",
+//         "subType": "Thriller",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -134,7 +134,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "DVD",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -164,7 +164,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "Bluray",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -196,7 +196,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "DVD",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -226,7 +226,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "Bluray",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -258,7 +258,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "DVD",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -288,7 +288,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "Bluray",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -320,7 +320,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "LP",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,
@@ -350,7 +350,7 @@
 //         "artist
 //         ": "John Smith",
 //         "typeOfMedia": "LP",
-//         "genre": "Rock",
+//         "subType": "Rock",
 //         "mediaID": "124q45",
 //         "quantity": 2,
 //         "sellable": true,

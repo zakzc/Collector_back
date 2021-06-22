@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
   },
-  bookCollection: [
+  mediaCollection: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "BookCollection",
+      ref: "MediaCollection",
     },
   ],
 });

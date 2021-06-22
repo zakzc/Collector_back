@@ -3,7 +3,7 @@
   "typeOfMedia": "B",
   "title": "A hundred years of solitude",
   "author": ["Gabriel Garcia-Marques"],
-  "genre": "novel",
+  "subType": "novel",
   "edition": "7",
   "mediaID": "1234gas5",
   "quantity": 4,

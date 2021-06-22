@@ -1,7 +1,7 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 // Models
-const DB_Data = require("../../models/bookCollectionModel");
+const DB_Data = require("../../models/MediaCollectionModel");
 // const User_Data = require("../../models/userModel");
 // const tokenFunc = require("../../utils/tokenFunc");
 
@@ -13,12 +13,12 @@ const goodEntry = {
   typeOfMedia: "B",
   title: "Tales of the Jazz Age",
   author: ["F. Scott Fitzgerald"],
-  genre: "novel",
+  subType: "novel",
   edition: "5",
   mediaID: "1234gas5",
   quantity: 3,
   sellable: true,
-  dates: [{ originalReleaseDate: "1922-01-01" }, { editionDate: "1997-10-02" }],
+  dates: "1922-01-01",
   price: [
     {
       dateOfEval: "2001-10-08",
@@ -36,12 +36,12 @@ const badEntry = {
   typeOfMedia: "B",
   title: "",
   author: ["F. Scott Fitzgerald"],
-  genre: "novel",
+  subType: "novel",
   edition: "5",
   mediaID: "1234gas5",
   quantity: 3,
   sellable: true,
-  dates: [{ originalReleaseDate: "1922-01-01" }, { editionDate: "1997-10-02" }],
+  dates: "1922-01-01",
   price: [
     {
       dateOfEval: "2001-10-08",

@@ -3,7 +3,7 @@
   "typeOfMedia": "B",
   "title": "Tales of the Jazz Age",
   "author": ["F. Scott Fitzgerald"],
-  "genre": "novel",
+  "subType": "novel",
   "edition": "5",
   "mediaID": "1234gas5",
   "quantity": 3,

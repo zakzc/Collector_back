@@ -2,14 +2,24 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const logger = require("./logger");
 
-function validateBook(data) {
-  logger.info("Validation request for:\n" + typeof data + data);
+function validateMedia(data) {
+  logger.info(
+    "Validation request for:\n" +
+      data.typeOfMedia +
+      data.author +
+      data.subType +
+      data.mediaID +
+      data.quantity +
+      data.sellable +
+      data.dateOfPurchase +
+      data.price
+  );
   const schema = Joi.object({
     collector: Joi.objectId(),
-    typeOfMedia: Joi.string().min(1).max(1).required(),
-    title: Joi.string().min(3).max(250).required(),
-    author: Joi.array().items(Joi.string().min(3).max(150).required()),
-    genre: Joi.string().min(3).max(50).required(),
+    typeOfMedia: Joi.string().min(2).max(15).required(),
+    subType: Joi.string().min(2).max(15).required(),
+    title: Joi.string().min(3).max(150).required(),
+    author: Joi.string().min(3).max(150).required(),
     mediaID: Joi.string().min(3).max(50).required(),
     quantity: Joi.number().required(),
     sellable: Joi.boolean().required(),
@@ -28,4 +38,4 @@ function validateBook(data) {
   return false;
 }
 
-module.exports = validateBook;
+module.exports = validateMedia;

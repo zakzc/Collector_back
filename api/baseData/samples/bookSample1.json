@@ -3,7 +3,7 @@
   "typeOfMedia": "B",
   "title": "Memórias Póstumas de Brás Cubas",
   "author": ["Machado de Assis"],
-  "genre": "novel",
+  "subType": "novel",
   "edition": "12",
   "mediaID": "1234gas5",
   "quantity": 2,
