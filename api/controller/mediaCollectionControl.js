@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 // utils
 const _ = require("lodash");
+const duplicate = require("../utils/duplicate");
 const logger = require("../utils/logger");
 const validateMedia = require("../utils/validateMedia");
 // model
@@ -26,16 +27,23 @@ function getMediaData(data) {
 
 async function addNewItem(req, res) {
   logger.info("Add item: ", req.body);
+
+  const isDuplicate = await duplicate(req.body);
+  if (isDuplicate === true) {
+    logger.info("Duplicated item");
+    return res.status(200).send({
+      success: false,
+      message: "Duplicated item",
+    });
+  }
+  ///
   const validation = validateMedia(req.body);
-  // returns false if valid
   if (validation.valid === false)
-    return res
-      .status(400)
-      .send({
-        success: false,
-        message: "Validation error",
-        data: validation.message,
-      });
+    return res.status(400).send({
+      success: false,
+      message: "Validation error",
+      data: validation.message,
+    });
   const itemToAdd = getMediaData(req.body);
   newItem = new MediaCollection({
     collector: itemToAdd.collector,
@@ -57,8 +65,8 @@ async function addNewItem(req, res) {
 }
 
 async function getAll(req, res) {
-  logger.info("Get all data");
   const collectionOfItems = await MediaCollection.find().sort();
+  logger.info("Get all data");
   return res.status(200).send({ success: true, data: collectionOfItems });
 }
 

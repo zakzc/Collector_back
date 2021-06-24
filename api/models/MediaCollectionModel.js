@@ -59,4 +59,4 @@ const MediaCollectionSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Media", MediaCollectionSchema);
+module.exports = mongoose.model("Media_Collection", MediaCollectionSchema);
