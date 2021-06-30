@@ -25,8 +25,8 @@ function validateMedia(data) {
     sellable: Joi.boolean().required(),
     dateOfPurchase: Joi.date().min(1).required(),
     price: Joi.number().required(),
-    details: Joi.string().min(3).max(250),
-    notes: Joi.string().min(3).max(250),
+    details: Joi.string().max(250),
+    notes: Joi.string().max(250),
   });
   const isValid = schema.validate(data);
   if (isValid.error) {

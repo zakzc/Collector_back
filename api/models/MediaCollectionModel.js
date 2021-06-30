@@ -10,7 +10,6 @@ const MediaCollectionSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 15,
-    uppercase: true,
     trim: true,
   },
   subType: {
@@ -47,15 +46,17 @@ const MediaCollectionSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   details: {
     type: String,
-    minlength: 3,
+    minlength: 0,
     maxlength: 250,
     trim: true,
+    required: false,
   },
   notes: {
     type: String,
-    minlength: 3,
+    minlength: 0,
     maxlength: 250,
     trim: true,
+    required: false,
   },
 });
 
