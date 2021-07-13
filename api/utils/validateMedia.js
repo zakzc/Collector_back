@@ -23,7 +23,7 @@ function validateMedia(data) {
     mediaID: Joi.string().min(3).max(50).required(),
     quantity: Joi.number().required(),
     sellable: Joi.boolean().required(),
-    dateOfPurchase: Joi.date().min(1).required(),
+    dateOfPurchase: Joi.date().required(),
     price: Joi.number().required(),
     details: Joi.string().max(250),
     notes: Joi.string().max(250),

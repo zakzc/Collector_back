@@ -44,6 +44,7 @@ async function addNewItem(req, res) {
       message: "Validation error",
       data: validation.message,
     });
+
   const itemToAdd = getMediaData(req.body);
   newItem = new MediaCollection({
     collector: itemToAdd.collector,
