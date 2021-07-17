@@ -5,10 +5,10 @@ const validateUser = require("../utils/validateUser");
 const _ = require("lodash");
 const logger = require("../utils/logger");
 // psw and hash
-// const hashFunc = require("../utils/hashFunc");
-// const bcrypt = require("bcrypt");
-// const tokenFunc = require("../utils/tokenFunc");
-// const auth = require("../middleware/auth");
+const hashFunc = require("../utils/hashFunc");
+const bcrypt = require("bcryptjs");
+const tokenFunc = require("../utils/tokenFunc");
+const auth = require("../middleware/auth");
 
 async function registerUser(req, res) {
   const validationError = validateUser(req.body);
@@ -25,13 +25,13 @@ async function registerUser(req, res) {
       .status(400)
       .json({ success: false, message: "This user already exists" });
   // psw
-  //   const hashedPsw = await hashFunc(newUser.password);
+  const hashedPsw = await hashFunc(newUser.password);
   // set data
   addNewUser = new User({
     name: newUser.name,
     email: newUser.email,
-    // password: hashedPsw,
-    password: newUser.password,
+    password: hashedPsw,
+    // password: newUser.password,
     isAdmin: newUser.isAdmin,
   });
   // save
@@ -51,41 +51,36 @@ async function registerUser(req, res) {
 }
 
 async function logIn(req, res) {
-  const validationError = validateUser(req.body);
-  if (validationError) return res.status(400).send(validationError);
+  // const validationError = validateUser(req.body);
+  // if (validationError) return res.status(400).send(validationError);
   // get data
-  const requestingUser = _.pick(req.body, [
-    "name",
-    "email",
-    "password",
-    "isAdmin",
-  ]);
+  const requestingUser = _.pick(req.body, ["email", "password"]);
   // check
   const existingUser = await User.findOne({ email: requestingUser.email });
   if (!existingUser) return res.status(400).send("This user doesn't exist ");
   // psw and token check
-  //   const validPass = bcrypt.compare(
-  //     requestingUser.password,
-  //     existingUser.password
-  //   );
-  //   if (!validPass) {
-  //     return res.status(400).send("Invalid credential");
-  //   }
+  const validPass = bcrypt.compare(
+    requestingUser.password,
+    existingUser.password
+  );
+  if (!validPass) {
+    return res.status(400).send("Invalid credential");
+  }
 
-  //   const token = tokenFunc({
-  //     _id: existingUser._id,
-  //     isAdmin: existingUser.isAdmin,
-  //   });
-  // return res.header("x-auth-token", token).status(200).json({ login: true });
+  const token = tokenFunc({
+    _id: existingUser._id,
+    isAdmin: existingUser.isAdmin,
+  });
+  return res.header("x-auth-token", token).status(200).json({ login: true });
 
-  return res.status(200).json({ login: true });
+  //return res.status(200).json({ login: true });
 }
 
 // to get the current logged in user
 async function getCurrentUser(req, res) {
-  //   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-  //     return res.status(404).send("Invalid ID requested");
-  //   }
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(404).send("Invalid ID requested");
+  }
   const existingUser = await User.findOne({
     _id: req.user._id,
   }).select("-password");
