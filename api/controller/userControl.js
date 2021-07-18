@@ -33,6 +33,7 @@ async function registerUser(req, res) {
     password: hashedPsw,
     // password: newUser.password,
     isAdmin: newUser.isAdmin,
+    userCollections: [],
   });
   // save
   await addNewUser.save();

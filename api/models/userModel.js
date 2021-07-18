@@ -24,10 +24,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     unique: true,
   },
-  isAdmin: {
-    type: Boolean,
-  },
-  mediaCollection: [
+  userCollection: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "MediaCollection",

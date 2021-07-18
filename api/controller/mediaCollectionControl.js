@@ -85,7 +85,7 @@ async function getByCollectorId(req, res) {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(404).send("invalid Id requested");
   }
-  logger.info("Get all books owned by id:", req.params.id);
+  logger.info("Get all media owned by id:", req.params.id);
   const collectorCollection = await MediaCollection.find({
     collector: req.params.id,
   });
