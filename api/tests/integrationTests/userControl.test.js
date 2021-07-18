@@ -11,14 +11,12 @@ const goodEntry = {
   name: "Thor",
   email: "thor@asgard.org",
   password: "hammer",
-  isAdmin: true,
 };
 
 const badEntry = {
   name: "Loki",
   email: "",
   password: "horns",
-  isAdmin: true,
 };
 
 describe("\nIntegration test: User controller", () => {

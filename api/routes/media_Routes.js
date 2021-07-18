@@ -8,7 +8,7 @@ const mediaCollectionControl = require("../controller/mediaCollectionControl");
 const logger = require("../utils/logger");
 
 if (process.env.NODE_ENV === "development") {
-  logger.info("Book router on");
+  logger.info("Medias router on");
   router.use(morgan("tiny"));
 }
 

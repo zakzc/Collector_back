@@ -11,70 +11,93 @@ const tokenFunc = require("../utils/tokenFunc");
 const auth = require("../middleware/auth");
 
 async function registerUser(req, res) {
-  const validationError = validateUser(req.body);
-  if (validationError)
-    return res.status(400).send({ success: false, error: validationError });
-  // get data
-  const newUser = _.pick(req.body, ["name", "email", "password", "isAdmin"]);
-  logger.info("registration for: ", newUser);
-  // check data
-  const doesUserExist = await User.exists({ email: newUser.email });
-  logger.info(doesUserExist);
-  if (doesUserExist)
-    return res
-      .status(400)
-      .json({ success: false, message: "This user already exists" });
-  // psw
-  const hashedPsw = await hashFunc(newUser.password);
-  // set data
-  addNewUser = new User({
-    name: newUser.name,
-    email: newUser.email,
-    password: hashedPsw,
-    // password: newUser.password,
-    isAdmin: newUser.isAdmin,
-    userCollections: [],
-  });
-  // save
-  await addNewUser.save();
-  // get token
-  //   const token = tokenFunc({ _id: newUser._id, isAdmin: existingUser.isAdmin });
-  // set header and send response
-  try {
-    res
-      // .header("x-auth-token", token)
-      .status(201)
-      .json({ success: true, user: newUser.name, email: newUser.email });
-  } catch (err) {
-    log.error("Adding item failed. Error:\n", err);
-    res.status(400).json({ success: false, message: "Add user failed" });
+  // validate req
+  const validationError = validateUser(req.body, "register");
+  if (validationError === false || !validationError) {
+    return res.status(400).send({ success: false, message: validationError });
+  } else {
+    // get data from req
+    const newUser = _.pick(req.body, ["name", "email", "password"]);
+    logger.info("registration for: ", newUser);
+    // check data exists
+    const doesUserExist = await User.exists({ email: newUser.email });
+    logger.info(doesUserExist);
+    if (doesUserExist) {
+      return res
+        .status(400)
+        .json({ success: false, message: "This user already exists" });
+    } else {
+      // psw
+      const hashedPsw = await hashFunc(newUser.password);
+      // set data
+      addNewUser = new User({
+        name: newUser.name,
+        email: newUser.email,
+        password: hashedPsw,
+        userCollections: [],
+      });
+      // save
+      await addNewUser.save();
+      // get token
+      const token = tokenFunc({ _id: newUser._id, name: newUser.name });
+      // set header and send response
+      try {
+        res
+          .header("x-auth-token", token)
+          .status(201)
+          .json({ success: true, user: newUser.name, email: newUser.email });
+      } catch (err) {
+        log.error("Adding item failed. Error:\n", err);
+        res.status(400).json({ success: false, message: "Add user failed" });
+      }
+    }
   }
 }
 
 async function logIn(req, res) {
-  // const validationError = validateUser(req.body);
-  // if (validationError) return res.status(400).send(validationError);
-  // get data
+  // get data from req
   const requestingUser = _.pick(req.body, ["email", "password"]);
-  // check
-  const existingUser = await User.findOne({ email: requestingUser.email });
-  if (!existingUser) return res.status(400).send("This user doesn't exist ");
-  // psw and token check
-  const validPass = bcrypt.compare(
-    requestingUser.password,
-    existingUser.password
-  );
-  if (!validPass) {
-    return res.status(400).send("Invalid credential");
+  // validate data
+  const validationError = validateUser(req.body, "login");
+  if (validationError === false || !validationError) {
+    return res
+      .status(400)
+      .send({ success: false, message: "Error on data validation" });
+  } else {
+    // check for existence
+    const existingUser = await User.findOne({
+      email: requestingUser.email,
+    }).then((user) => {
+      if (!user) {
+        return res
+          .status(400)
+          .send({ success: false, message: "This user doesn't exist " });
+      } else {
+        return { name: user.name, password: user.password, id: user._id };
+      }
+    });
+    // check psw
+    bcrypt
+      .compare(requestingUser.password, existingUser.password)
+      .then((isMatch) => {
+        if (!isMatch || isMatch === false) {
+          return res
+            .status(400)
+            .send({ success: false, message: "Invalid credentials" });
+        } else {
+          // add token
+          const token = tokenFunc({
+            id: existingUser.id,
+            name: existingUser.name,
+          });
+          console.log("what is happening? ", existingUser);
+          return res
+            .header("x-auth-token", token)
+            .status(200)
+            .send({ login: true, id: existingUser.id });
+        }
+      });
   }
-
-  const token = tokenFunc({
-    _id: existingUser._id,
-    isAdmin: existingUser.isAdmin,
-  });
-  return res.header("x-auth-token", token).status(200).json({ login: true });
-
-  //return res.status(200).json({ login: true });
 }
 
 // to get the current logged in user
