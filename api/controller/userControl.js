@@ -11,6 +11,7 @@ const tokenFunc = require("../utils/tokenFunc");
 const auth = require("../middleware/auth");
 
 async function registerUser(req, res) {
+  logger.info("Registration for: ", req.body);
   // validate req
   const validationError = validateUser(req.body, "register");
   if (validationError === false || !validationError) {
@@ -55,6 +56,7 @@ async function registerUser(req, res) {
 }
 
 async function logIn(req, res) {
+  logger.info("Log in for: ", req.body);
   // get data from req
   const requestingUser = _.pick(req.body, ["email", "password"]);
   // validate data
@@ -90,11 +92,17 @@ async function logIn(req, res) {
             id: existingUser.id,
             name: existingUser.name,
           });
-          console.log("what is happening? ", existingUser);
           return res
             .header("x-auth-token", token)
             .status(200)
-            .send({ login: true, id: existingUser.id });
+            .send({
+              success: true,
+              message: {
+                id: existingUser.id,
+                name: existingUser.name,
+                userToken: token,
+              },
+            });
         }
       });
   }
