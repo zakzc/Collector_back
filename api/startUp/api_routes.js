@@ -18,8 +18,8 @@ module.exports = function (app) {
 
   app.use(express.json());
   app.use(cors());
-  app.use("/collections", mediaRoutes);
-  // app.use("/collections", auth, mediaRoutes);
+  //app.use("/collections", mediaRoutes);
+  app.use("/collections", auth, mediaRoutes);
   app.use("/collectors", userRoutes);
 
   app.use((req, res) => {

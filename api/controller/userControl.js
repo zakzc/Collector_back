@@ -46,7 +46,14 @@ async function registerUser(req, res) {
         res
           .header("x-auth-token", token)
           .status(201)
-          .json({ success: true, user: newUser.name, email: newUser.email });
+          .send({
+            success: true,
+            message: {
+              user: newUser.name,
+              email: newUser.email,
+              id: newUser.id,
+            },
+          });
       } catch (err) {
         log.error("Adding item failed. Error:\n", err);
         res.status(400).json({ success: false, message: "Add user failed" });
@@ -92,6 +99,7 @@ async function logIn(req, res) {
             id: existingUser.id,
             name: existingUser.name,
           });
+          logger.info("Log in for: ", existingUser);
           return res
             .header("x-auth-token", token)
             .status(200)
