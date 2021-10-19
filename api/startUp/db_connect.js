@@ -14,11 +14,11 @@ module.exports = function () {
       : process.env.MONGOOSE_URI;
   const mongooseOptions = { useNewUrlParser: true, useUnifiedTopology: true };
   ////////// ********** ///////////
-  // ? The version bellow was necessary to align test, dev and prod mode.
-  // ? But it seems to be working now
+  // The version bellow was necessary to align test, dev and prod mode.
+  // But it seems to be working now
   // const mongooseOptions =
-  //   process.env.NODE_ENV === "test"
-  //     ? { useNewUrlParser: true, useUnifiedTopology: false }
+  //   process.env.NODE_ENV === "test" ?
+  //     { useNewUrlParser: true, useUnifiedTopology: false }
   //     : { useNewUrlParser: true, useUnifiedTopology: true };
 
   ///Connection

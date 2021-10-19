@@ -4,7 +4,7 @@ Joi.objectId = require("joi-objectid")(Joi);
 const logger = require("./logger");
 
 function validateUser(data, typeOfValidation) {
-  logger.info("Request for validation");
+  logger.info("Request for validation: ", data);
   let schema;
   if (typeOfValidation === "register") {
     schema = Joi.object({

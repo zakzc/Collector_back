@@ -14,9 +14,9 @@ require("./api/startUp/prod")(app);
 let port;
 
 if (process.env.NODE_ENV === "test") {
-  port = process.env.TEST_PORT || 3001;
+  port = process.env.TEST_PORT || 3002;
 } else {
-  port = process.env.PORT || 3000;
+  port = process.env.PORT || 3001;
 }
 
 const server = app.listen(port, () =>
