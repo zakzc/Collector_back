@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
+// model
 const User = require('../models/userModel');
+// utils
 const hashFunc = require('../utils/hashFunc');
 const tokenFunc = require('../utils/tokenFunc');
 const logger = require('../utils/logger');
+const makeBaseCollection = require('../utils/makeBaseCollection');
 
 async function OAuthUser(req, res) {
-    logger.info('OAuth user request: ', req.body);
+    logger.info('OAuth user request. Received:\n ', req.body);
     const doesUserExist = await User.exists({ email: req.body.data.email });
     // exists?
     if (doesUserExist) {
@@ -23,13 +26,15 @@ async function OAuthUser(req, res) {
         // exist = false, create user
         const hashedPsw = await hashFunc(req.body.data.googleId);
         let addNewUser = new User({
-            name: req.body.data.givenName,
+            name: req.body.data.name,
             email: req.body.data.email,
             password: hashedPsw,
             userCollections: [],
         });
         // save
         await addNewUser.save();
+        // make sample record
+        await makeBaseCollection(addNewUser._id);
         // get token
         const token = tokenFunc({ _id: addNewUser._id, name: addNewUser.name });
         // set header and send response

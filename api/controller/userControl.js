@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
-// auth
-// const { OAuth2Client } = require('google-auth-library');
 /// utils
-const validateUser = require('../utils/validateUser');
 const _ = require('lodash');
 const logger = require('../utils/logger');
+const makeBaseCollection = require('../utils/makeBaseCollection');
+const validateUser = require('../utils/validateUser');
 // psw and hash
 const hashFunc = require('../utils/hashFunc');
 const bcrypt = require('bcryptjs');
@@ -39,6 +38,8 @@ async function registerUser(req, res) {
             });
             // save
             await addNewUser.save();
+            // make sample record
+            makeBaseCollection(newUser_id);
             // get token
             const token = tokenFunc({ _id: newUser._id, name: newUser.name });
             // set header and send response
