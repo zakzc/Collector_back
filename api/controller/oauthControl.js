@@ -34,7 +34,8 @@ async function OAuthUser(req, res) {
         // save
         await addNewUser.save();
         // make sample record
-        await makeBaseCollection(addNewUser._id);
+        logger.info(addNewUser._id);
+        makeBaseCollection(addNewUser._id);
         // get token
         const token = tokenFunc({ _id: addNewUser._id, name: addNewUser.name });
         // set header and send response
@@ -43,9 +44,9 @@ async function OAuthUser(req, res) {
             .send({
                 success: true,
                 message: {
-                    user: newUser.name,
-                    email: newUser.email,
-                    id: newUser.id,
+                    user: addNewUser.name,
+                    email: addNewUser.email,
+                    id: addNewUser.id,
                 },
             });
     }
