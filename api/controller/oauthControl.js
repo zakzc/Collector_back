@@ -9,6 +9,7 @@ const makeBaseCollection = require('../utils/makeBaseCollection');
 
 async function OAuthUser(req, res) {
     logger.info('OAuth user request. Received:\n ', req.body);
+    console.log('OAuth user request. Received:\n ', req.body, req.body.data);
     const doesUserExist = await User.exists({ email: req.body.data.email });
     // exists?
     if (doesUserExist) {
