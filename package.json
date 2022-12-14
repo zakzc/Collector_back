@@ -19,7 +19,7 @@
         "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
         "dotenv": "^9.0.2",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "google-auth-library": "^7.10.0",
         "googleapis": "^88.2.0",
         "helmet": "^4.6.0",
